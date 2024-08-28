@@ -1,0 +1,39 @@
+import os
+import shutil
+
+# 다운로드 폴더 경로
+download_folder = r"C:\Users\student\Downloads"
+
+# 파일을 이동할 대상 폴더들
+image_folder = os.path.join(download_folder, "images")
+data_folder = os.path.join(download_folder, "data")
+docs_folder = os.path.join(download_folder, "docs")
+archive_folder = os.path.join(download_folder, "archive")
+
+# 각 폴더가 존재하지 않으면 생성
+os.makedirs(image_folder, exist_ok=True)
+os.makedirs(data_folder, exist_ok=True)
+os.makedirs(docs_folder, exist_ok=True)
+os.makedirs(archive_folder, exist_ok=True)
+
+# 파일 확장자별 폴더 매핑
+file_mapping = {
+    (".jpg", ".jpeg"): image_folder,
+    (".csv", ".xlsx"): data_folder,
+    (".txt", ".doc", ".pdf"): docs_folder,
+    (".zip",): archive_folder,
+}
+
+# 다운로드 폴더의 파일들을 확인
+for filename in os.listdir(download_folder):
+    file_path = os.path.join(download_folder, filename)
+
+    # 파일만 처리
+    if os.path.isfile(file_path):
+        # 파일 확장자를 기준으로 이동할 폴더 결정
+        for extensions, destination_folder in file_mapping.items():
+            if filename.lower().endswith(extensions):
+                # 파일을 해당 폴더로 이동
+                shutil.move(file_path, os.path.join(destination_folder, filename))
+                print(f"{filename} -> {destination_folder}")
+                break

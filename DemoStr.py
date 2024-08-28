@@ -15,7 +15,7 @@ print(":)".join(lst))
 #####
 delete=":)".join(lst)
 print(delete)
-combine=delete.strip(":) ")
+combine=delete.replace(":)", " ")
 print(combine)
 
 # print(combine.strip(':)'))
