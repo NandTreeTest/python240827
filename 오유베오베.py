@@ -24,9 +24,11 @@ for n in range(1,10):
                 for item in list:
                         try:
                                 title = item.find("a").text.strip()
+                                href = item.find("a")["href"]
                                 # print(title)
                                 if (re.search('한국', title)):
                                         print(title)
+                                        print(href)
                         except:
                                 pass
         except:
